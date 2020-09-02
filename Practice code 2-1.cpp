@@ -63,9 +63,54 @@ int Locatelist(Sqlist* L, ElemType e)//查找表中数值与e相同的数据项�
 	else 
 		return i+1;
 }
-bool Listinsert(Sqlist*& L, int i,ElemType e)
+bool Listinsert(Sqlist*& L, int i,ElemType e)//线性表插入运算，将第i个元素和之后的元素向后移动一位，将e放入i位置；
 {
-
+	int j;
+	if (i > L->length + 1 || i < 1)
+		return false;
+	i--;
+	for (j = L->length;j > i;j--)
+	{
+		L->data[j] = L->data[j - 1];
+	}
+	L->data[i] = e;
+	L->length++;
+	return true;
+}
+void delnodel(Sqlist*& L, ElemType x)
+{
+	int k = 0, i;
+	for (i = 0;i < L->length;i++)
+	{
+		if (L->data[i] != x)
+		{
+			L->data[k] = L->data[i];
+			k++;
+		}
+	}
+	L->length = k;
+}
+void partion1(Sqlist*& L)
+{
+	int i=0, j=L->length-1;
+	ElemType pivot = L->data[0];
+	while (i < j)
+	{
+		while (j > i && L->data[j] > pivot)
+			j--;
+		while (i < j && L->data[i] < pivot)
+			i++;
+		if (i < j)
+		{
+			swap(L->data[i], L->data[j]);
+		}
+	}
+	swap(L->data[0], L->data[i]);
+}
+void swap(ElemType &a, ElemType &b)
+{
+	ElemType t;
+	t = a;a = b;b = t;
 }
 int main()
 {
